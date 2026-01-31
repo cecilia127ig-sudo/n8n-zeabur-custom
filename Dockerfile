@@ -12,12 +12,12 @@ RUN apk add --no-cache \
   fontconfig
 # 下載 Noto CJK（繁中 TC）字體，放入系統 fonts 目錄，更新 font cache
 RUN apk add --no-cache curl unzip && \
-  mkdir -p /usr/share/fonts/noto-cjk && \
-  curl -L -o /tmp/NotoSansCJKtc-hinted.zip \
-    https://github.com/notofonts/noto-cjk/releases/latest/download/NotoSansCJKtc-hinted.zip && \
-  unzip -o /tmp/NotoSansCJKtc-hinted.zip -d /usr/share/fonts/noto-cjk && \
-  rm -f /tmp/NotoSansCJKtc-hinted.zip && \
+  mkdir -p /usr/share/fonts/noto-sans-tc && \
+  curl -L -o /tmp/NotoSansTC.zip "https://fonts.google.com/download?family=Noto%20Sans%20TC" && \
+  unzip -o /tmp/NotoSansTC.zip -d /usr/share/fonts/noto-sans-tc && \
+  rm -f /tmp/NotoSansTC.zip && \
   fc-cache -f
+
 
 RUN npm install n8n-nodes-puppeteer
 
