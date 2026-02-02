@@ -4,8 +4,8 @@ FROM debian:bookworm-slim
 RUN apt-get update && apt-get install -y \
     curl \
     git \
-&& curl -fsSL https://deb.nodesource.com/setup_20.x | sh - \
-&& apt-get install -y nodejs \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | sh - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 # Install fontconfig
@@ -23,6 +23,6 @@ RUN chmod 644 /usr/share/fonts/truetype/custom/* && fc-cache -f -v
 RUN useradd -m -u 1000 node
 USER node
 
-EXPOSE 3000
+EXPOSE 5678
 WORKDIR /home/node
 CMD ["n8n", "start"]
