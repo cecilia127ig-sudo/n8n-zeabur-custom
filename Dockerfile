@@ -1,21 +1,26 @@
 FROM debian:bookworm-slim
 
-RUN apt-get update && apt-get install -y \
-    bash \
-    curl \
-    git \
-    fontconfig \
-    graphicsmagick \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
+# Install bash and other tools
+RUN apt-get update && apt-get install -y \\
+    bash \\
+    curl \\
+    git \\
+    && curl -fsSL [https://deb.nodesource.com/setup_20.x](https://deb.nodesource.com/setup_20.x) | bash - \\
+    && apt-get install -y nodejs \\
     && rm -rf /var/lib/apt/lists/*
 
+# Install fontconfig
+RUN apt-get update && apt-get install -y fontconfig && rm -rf /var/lib/apt/lists/*
+
+# Install n8n globally
 RUN npm install -g n8n
 
+# Create fonts directory
 RUN mkdir -p /usr/share/fonts/truetype/custom
 COPY fonts/ /usr/share/fonts/truetype/custom/
 RUN chmod 644 /usr/share/fonts/truetype/custom/* && fc-cache -f -v
 
+# Create n8n user
 RUN useradd -m -u 1000 node
 USER node
 
